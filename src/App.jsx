@@ -553,7 +553,7 @@ const Portfolio = () => {
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Email Card */}
-            <a href="mailto:shubham@vt.edu" className={`group p-10 rounded-2xl border shadow-sm transition-all duration-300 flex flex-col items-center text-center ${darkMode ? 'bg-black border-white/20 hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'bg-neutral-50 border-neutral-200 hover:shadow-xl hover:-translate-y-1'}`}>
+            <a href="mailto:shubh4m@vt.edu" className={`group p-10 rounded-2xl border shadow-sm transition-all duration-300 flex flex-col items-center text-center ${darkMode ? 'bg-black border-white/20 hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'bg-neutral-50 border-neutral-200 hover:shadow-xl hover:-translate-y-1'}`}>
                <div className={`p-4 rounded-full mb-6 transition-colors duration-300 shadow-sm ${darkMode ? 'bg-white text-black' : 'bg-white text-blue-600 group-hover:bg-blue-600 group-hover:text-white'}`}>
                  <Mail className="w-8 h-8" />
                </div>
