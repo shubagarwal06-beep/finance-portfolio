@@ -25,7 +25,7 @@ import {
 const LINKEDIN_URL = "https://www.linkedin.com/in/shubham-agarwal-45542b328/";
 // IMPORTANT: Replace these placeholders with your actual public Google Drive PDF links.
 // Using `https://docs.google.com/viewer?url=...` is best for viewing PDFs in-browser.
-const RESUME_LINK = "https://drive.google.com/file/d/1sb3qOHut3oqjwrP4SVg2mVp68hBhHPbA/view?usp=sharing"; 
+const RESUME_LINK = "https://drive.google.com/file/d/1ajo9k9n_IW1sXD8SHqf2ttTA0SEXUjOI/view?usp=drive_link"; 
 
 const INITIAL_PROJECTS = [
   {
@@ -252,11 +252,8 @@ const Portfolio = () => {
       {/* About Section - With Photo (Header Centered) */}
       <section id="about" className={`py-24 border-b transition-colors duration-300 ${darkMode ? 'bg-black border-white/20' : 'bg-neutral-50 border-neutral-200'}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* FIX: Added text-center here to center the header */}
-          <h2 className="w-full text-center text-4xl font-bold mb-16">
-  About Me
-</h2>
-
+          {/* FIX: Centered Header */}
+          <h2 className="text-4xl font-bold mb-16 text-center">About Me</h2>
           
           <div className="flex flex-col md:flex-row items-center gap-16">
             {/* Profile Photo */}
@@ -556,7 +553,7 @@ const Portfolio = () => {
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Email Card */}
-            <a href="mailto:shubh4m@vt.edu" className={`group p-10 rounded-2xl border shadow-sm transition-all duration-300 flex flex-col items-center text-center ${darkMode ? 'bg-black border-white/20 hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'bg-neutral-50 border-neutral-200 hover:shadow-xl hover:-translate-y-1'}`}>
+            <a href="mailto:shubham@vt.edu" className={`group p-10 rounded-2xl border shadow-sm transition-all duration-300 flex flex-col items-center text-center ${darkMode ? 'bg-black border-white/20 hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'bg-neutral-50 border-neutral-200 hover:shadow-xl hover:-translate-y-1'}`}>
                <div className={`p-4 rounded-full mb-6 transition-colors duration-300 shadow-sm ${darkMode ? 'bg-white text-black' : 'bg-white text-blue-600 group-hover:bg-blue-600 group-hover:text-white'}`}>
                  <Mail className="w-8 h-8" />
                </div>
@@ -582,7 +579,12 @@ const Portfolio = () => {
           <p className="text-sm">© 2025 Shubham Agarwal. All rights reserved.</p>
           
           <div className="flex items-center space-x-6 mt-4 md:mt-0">
-             <button onClick={() => setIsFormOpen(true)} className={`transition-colors p-2 ${darkMode ? 'text-gray-600 hover:text-white' : 'text-neutral-600 hover:text-neutral-300'}`} title="Add Project (Private)">
+             {/* Discreet Admin Button - Just a lock icon in the footer */}
+             <button 
+                onClick={() => setIsFormOpen(true)}
+                className={`transition-colors p-2 ${darkMode ? 'text-gray-600 hover:text-white' : 'text-neutral-600 hover:text-neutral-300'}`}
+                title="Add Project (Private)"
+             >
                 <Lock className="w-4 h-4" />
              </button>
           </div>
@@ -594,21 +596,41 @@ const Portfolio = () => {
         <div className="fixed inset-0 bg-neutral-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className={`rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200 ${darkMode ? 'bg-black border border-white/20' : 'bg-white'}`}>
             {/* Header */}
-            <div className={`p-8 border-b flex justify-between items-start sticky top-0 z-10 ${darkMode ? 'bg-black border-white/20' : 'bg-white border-neutral-100'}`}>
-                <div>
-                    <span className={`font-bold text-xs uppercase tracking-widest mb-2 block ${darkMode ? 'text-white' : 'text-blue-600'}`}>{selectedProject.modalData.category}</span>
-                    <h2 className="text-2xl font-bold">{selectedProject.title}</h2>
-                </div>
-                <button 
-                    onClick={() => setSelectedProject(null)}
-                    className={`p-2 rounded-full transition-colors ${darkMode ? 'bg-white/10 hover:bg-white/20 text-white' : 'bg-neutral-50 hover:bg-neutral-100 text-neutral-400'}`}
-                >
-                    <X className="w-5 h-5" />
-                </button>
-            </div>
+            <div
+  className={`px-5 py-4 sm:p-6 md:p-8 border-b flex justify-between items-start sticky top-0 z-10 ${
+    darkMode ? 'bg-black border-white/20' : 'bg-white border-neutral-100'
+  }`}
+>
+  <div className="max-w-[85%]">
+    <span
+      className={`font-bold text-xs uppercase tracking-widest mb-2 block ${
+        darkMode ? 'text-white' : 'text-blue-600'
+      }`}
+    >
+      {selectedProject.modalData.category}
+    </span>
+
+    <h2
+      className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug break-words"
+    >
+      {selectedProject.title}
+    </h2>
+  </div>
+
+  <button
+    onClick={() => setSelectedProject(null)}
+    className={`p-2 rounded-full transition-colors ${
+      darkMode ? 'bg-white/10 hover:bg-white/20 text-white' : 'bg-neutral-50 hover:bg-neutral-100 text-neutral-400'
+    }`}
+  >
+    <X className="w-5 h-5" />
+  </button>
+</div>
+
+
             <div className="p-8">
                 {/* Metrics Row */}
-                <div className="grid grid-cols-3 gap-4 mb-10">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
                     {selectedProject.modalData.metrics.map((m, i) => (
                         <div key={i} className={`p-4 rounded-lg text-center border ${darkMode ? 'bg-black border-white/20' : 'bg-neutral-50 border-neutral-100'}`}>
                             <div className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${darkMode ? 'text-gray-400' : 'text-neutral-400'}`}>{m.label}</div>
