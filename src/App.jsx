@@ -35,7 +35,7 @@ const INITIAL_PROJECTS = [
     date: "Sep 24, 2025",
     recommendation: "Buy 6.3% 2032 Bond",
     summary: "Fixed income analysis recommending eBay's 2032 corporate bonds. The pitch highlights eBay's asset-light model which generates consistent free cash flow (~$2B/year).",
-    tags: ["High Yield", "Tech", "Bonds"],
+    tags: ["Tech", "Bonds"],
     pdfLink: "https://drive.google.com/file/d/1CSSnnRQgAiIaO8flBBPs1NjD1-5BoeUu/view?usp=drive_link", 
     modalData: {
       category: "FIXED INCOME",
@@ -52,30 +52,30 @@ const INITIAL_PROJECTS = [
       ]
     }
   },
-  {
-    id: 2,
-    title: "The Home Depot (HD) - Long Pitch",
-    type: "Equity Research",
-    date: "Sep 19, 2025",
-    recommendation: "BUY",
-    summary: "Developed 'Buy' recommendation centered on HD's professional contractor ('Pro') moat and earnings resilience from the 2025 Fed easing cycle.",
-    tags: ["Equity", "Retail", "Cyclical"],
-    pdfLink: "https://drive.google.com/file/d/1SIZFOT_Gffy8bDCiKLn3qIHTXZvOv5iU/view?usp=drive_link", 
-    modalData: {
-      category: "EQUITY RESEARCH",
-      metrics: [
-        { label: "MARKET CAP", value: "~$410B" },
-        { label: "DIV YIELD", value: "2.23%" },
-        { label: "RECOMMENDATION", value: "BUY" }
-      ],
-      overview: "Developed 'Buy' recommendation and 13-page pitch deck centered on HD's professional contractor ('Pro') moat and earnings resilience from the 2025 Fed easing cycle. Analyzed dominance in the fragmented home improvement market and the 'lock-in' effect of aging housing stock.",
-      thesis: [
-        { title: "Conquering the Pro Market", desc: "Consolidation creates an unrivaled B2B moat." },
-        { title: "Weaponizing Scale", desc: "Massive scale and tech-driven efficiency create stable margins." },
-        { title: "Asymmetric Bet", desc: "Expected 2025 rate cuts will unlock renovation demand." }
-      ]
-    }
-  },
+{
+  id: 2,
+  title: "The Home Depot (HD) - Long Pitch",
+  type: "Equity Research",
+  date: "Sep 19, 2025",
+  recommendation: "BUY",
+  summary: "My first full equity research pitch, built from scratch in PowerPoint. The investment thesis centered on HD's dominance in the professional contractor segment, a sticky, high-margin business that most retail investors overlook.",
+  tags: ["Equity", "Retail", "Cyclical"],
+  pdfLink: "https://drive.google.com/file/d/1SIZFOT_Gffy8bDCiKLn3qIHTXZvOv5iU/view?usp=drive_link", 
+  modalData: {
+    category: "EQUITY RESEARCH",
+    metrics: [
+      { label: "MARKET CAP", value: "~$410B" },
+      { label: "DIV YIELD", value: "2.23%" },
+      { label: "RECOMMENDATION", value: "BUY" }
+    ],
+    overview: "My first full equity research pitch, built from scratch in PowerPoint. The formatting process was tedious, but the final deck balanced clean design with strong information architecture. The investment thesis centered on HD's dominance in the professional contractor segment, a sticky, high-margin business that most retail investors overlook, and positioned the company to benefit from the Fed's expected 2025 easing cycle unlocking pent-up renovation demand. This project clarified what I want to do: building investment narratives that connect company fundamentals to broader market forces. Presented to SEED, where I refined my ability to defend a thesis under scrutiny.",
+    thesis: [
+      { title: "Conquering the Pro Market", desc: "Consolidation creates an unrivaled B2B moat." },
+      { title: "Weaponizing Scale", desc: "Massive scale and tech-driven efficiency create stable margins." },
+      { title: "Asymmetric Bet", desc: "Expected 2025 rate cuts will unlock renovation demand." }
+    ]
+  }
+},
   {
     id: 3,
     title: "Macroeconomic Conditions & The Fed",
