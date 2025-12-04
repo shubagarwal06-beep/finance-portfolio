@@ -499,7 +499,18 @@ const Portfolio = () => {
                   <BarChart3 className="w-4 h-4 mr-2" /> Analysis
                 </div>
                 <div className="flex flex-wrap gap-2.5">
-                  {['Equity Research', 'Credit Research', 'Macro Analysis', 'Geopolitical Risk', 'Industry Analysis', 'Insight Generation'].map(skill => (
+                  {[
+  'Equity Research',
+  'Credit Research',
+  'Macro Analysis',
+  'Geopolitical Risk',
+  'Industry Analysis',
+  'Insight Generation',
+  'FRED',
+  'IMF',
+  'World Bank',
+  'Google Scholar'
+].map(skill => (
                     <span key={skill} className={`text-xs px-3.5 py-2 rounded-md font-medium border shadow-sm transition-colors ${darkMode ? 'bg-black text-white border-white' : 'bg-white text-blue-800 border-blue-100'}`}>{skill}</span>
                   ))}
                 </div>
@@ -535,7 +546,15 @@ const Portfolio = () => {
                   <Cpu className="w-4 h-4 mr-2" /> Tools
                 </div>
                 <div className="flex flex-wrap gap-2.5">
-                  {['Excel', 'PowerPoint', 'Bloomberg', 'Python', 'FRED', 'IMF', 'World Bank', 'Google Scholar'].map(skill => (
+                  {[
+  'Excel',
+  'PowerPoint',
+  'Bloomberg',
+  'Python',
+  'Adobe Suite',
+  'Google Suite'
+]
+.map(skill => (
                     <span key={skill} className={`text-xs px-3.5 py-2 rounded-md font-medium border shadow-sm transition-colors ${darkMode ? 'bg-black text-white border-white' : 'bg-white text-emerald-800 border-emerald-100'}`}>{skill}</span>
                   ))}
                 </div>
