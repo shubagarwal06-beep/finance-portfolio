@@ -25,7 +25,7 @@ import {
 const LINKEDIN_URL = "https://www.linkedin.com/in/shubham-agarwal-45542b328/";
 // IMPORTANT: Replace these placeholders with your actual public Google Drive PDF links.
 // Using `https://docs.google.com/viewer?url=...` is best for viewing PDFs in-browser.
-const RESUME_LINK = "https://drive.google.com/file/d/1ajo9k9n_IW1sXD8SHqf2ttTA0SEXUjOI/view?usp=drive_link"; 
+const RESUME_LINK = "https://drive.google.com/file/d/1dlgAAyxgAKuLi5aS70tJCKfhh3Tpjabz/view?usp=drive_link"; 
 
 const INITIAL_PROJECTS = [
   {
