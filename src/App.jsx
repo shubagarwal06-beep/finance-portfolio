@@ -678,9 +678,14 @@ const Portfolio = () => {
                     <div className="space-y-6">
                         {selectedProject.modalData.thesis.map((point, i) => (
                             <div key={i} className="flex">
-                                <div className={`flex-shrink-0 w-8 h-8 rounded-full font-bold flex items-center justify-center text-sm mr-4 mt-0.5 ${darkMode ? 'bg-white text-black' : 'bg-blue-50 text-blue-600'}`}>
-                                    {i + 1}
-                                </div>
+                                <div
+  className={`flex-shrink-0 w-8 h-8 rounded-full font-bold flex items-center justify-center text-base mr-4 ${
+    darkMode ? 'bg-white text-black' : 'bg-blue-50 text-blue-600'
+  }`}
+>
+  {i + 1}
+</div>
+
                                 <div>
                                     <span className="font-bold block mb-1">{point.title}</span>
                                     <span className={`font-light text-sm ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>{point.desc}</span>
