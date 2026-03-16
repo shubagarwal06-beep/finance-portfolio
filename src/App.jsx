@@ -25,66 +25,114 @@ import {
 const LINKEDIN_URL = "https://www.linkedin.com/in/shubham-agarwal-45542b328/";
 // IMPORTANT: Replace these placeholders with your actual public Google Drive PDF links.
 // Using `https://docs.google.com/viewer?url=...` is best for viewing PDFs in-browser.
-const RESUME_LINK = "https://drive.google.com/file/d/1dlgAAyxgAKuLi5aS70tJCKfhh3Tpjabz/view?usp=drive_link"; 
+const RESUME_LINK = "https://drive.google.com/file/d/1vglt0626306xzjKJkBJZsczKBmKXEf6k/view?usp=drive_link"; 
 
 const INITIAL_PROJECTS = [
   {
     id: 1,
-    title: "eBay (EBAY) Bond Recommendation",
+    title: "Kraft Heinz (KHC) Bond Recommendation",
     type: "Fixed Income",
-    date: "Sep 24, 2025",
-    recommendation: "Buy 6.3% 2032 Bond",
-    summary: "Fixed income analysis recommending eBay's 2032 corporate bonds. The pitch highlights eBay's asset-light model which generates consistent free cash flow (~$2B/year).",
-    tags: ["Tech", "Bonds"],
-    pdfLink: "https://drive.google.com/file/d/1CSSnnRQgAiIaO8flBBPs1NjD1-5BoeUu/view?usp=drive_link", 
+    date: "Feb 20, 2026",
+    recommendation: "Buy 6.375% 2028 Bond",
+    summary: "Analyzed KHC's $21B debt stack to evaluate risk across two bonds with identical credit ratings. Identified asymmetric obligor and duration exposure on the long end, recommending the short-dated 2028 bond as the optimal risk-adjusted position.",
+    tags: ["Investment Grade", "Consumer Staples", "DCM"],
+    pdfLink: "https://drive.google.com/file/d/1yOYJYfvtZ4EFxvMrRPwBKd2y_RkfXZt3/view?usp=drive_link",
     modalData: {
-      category: "FIXED INCOME",
+      category: "FIXED INCOME / DCM",
       metrics: [
-        { label: "COUPON", value: "6.3%" },
-        { label: "MATURITY", value: "2032" },
-        { label: "Z-SPREAD", value: "110 bps" }
+        { label: "COUPON", value: "6.375%" },
+        { label: "DURATION", value: "~2 Years" },
+        { label: "FCF COVERAGE", value: "~4.5x" }
       ],
-      overview: "A fixed income analysis recommending eBay's 2032 corporate bonds. The pitch highlights eBay's asset-light model which generates consistent free cash flow (~$2B/year). The analysis contrasts eBay against weaker peers like Etsy, positioning the bond as a defensive yet high-yielding play in a shifting rate environment.",
+      overview: "Bond investment recommendation for BASIS (Virginia Tech's student-run $5MM fixed income fund). Analyzed Kraft Heinz's credit profile across its $21B debt stack, comparing the 6.375% 2028 bond against the 5.00% 2042 bond. Despite identical credit ratings (BBB), the two bonds carry materially different risk profiles due to spinoff uncertainty, duration exposure, and potential obligor changes on the long end.",
       thesis: [
-        { title: "Income Advantage", desc: "6.3% coupon offers strong current income vs peers." },
-        { title: "Financial Strength", desc: "2.6x leverage and 9x interest coverage with ~$5B cash." },
-        { title: "Fed Catalyst", desc: "7-year maturity benefits from expected yield curve normalization." }
+        { title: "Spinoff Risk Favors Short End", desc: "Downgrade watch affects the long bond. With spinoff paused Feb 2026, the 2028 maturity avoids obligor uncertainty." },
+        { title: "Strong Cash Flow Coverage", desc: "$3.7B FCF (2025) covers interest ~4.5x on FCF basis; Adj. EBITDA coverage ~5.3x with +15.9% YoY FCF growth." },
+        { title: "Duration Advantage", desc: "2-year duration insulates against turnaround risk. Even if downgraded to BB+, limited duration reduces price drawdown." }
       ]
     }
   },
-{
-  id: 2,
-  title: "The Home Depot (HD) - Long Pitch",
-  type: "Equity Research",
-  date: "Sep 19, 2025",
-  recommendation: "BUY",
-  summary: "My first full equity research pitch, built from scratch in PowerPoint. The investment thesis centered on HD's dominance in the professional contractor segment, a sticky, high-margin business that most retail investors overlook.",
-  tags: ["Equity", "Retail", "Cyclical"],
-  pdfLink: "https://drive.google.com/file/d/1SIZFOT_Gffy8bDCiKLn3qIHTXZvOv5iU/view?usp=drive_link", 
-  modalData: {
-    category: "EQUITY RESEARCH",
-    metrics: [
-      { label: "MARKET CAP", value: "~$410B" },
-      { label: "DIV YIELD", value: "2.23%" },
-      { label: "RECOMMENDATION", value: "BUY" }
-    ],
-    overview: "My first full equity research pitch, built from scratch in PowerPoint. The formatting process was tedious, but the final deck balanced clean design with strong information architecture. The investment thesis centered on HD's dominance in the professional contractor segment, a sticky, high-margin business that most retail investors overlook, and positioned the company to benefit from the Fed's expected 2025 easing cycle unlocking pent-up renovation demand. This project clarified what I want to do: building investment narratives that connect company fundamentals to broader market forces. Presented to SEED, where I refined my ability to defend a thesis under scrutiny.",
-    thesis: [
-      { title: "Conquering the Pro Market", desc: "Consolidation creates an unrivaled B2B moat." },
-      { title: "Weaponizing Scale", desc: "Massive scale and tech-driven efficiency create stable margins." },
-      { title: "Asymmetric Bet", desc: "Expected 2025 rate cuts will unlock renovation demand." }
-    ]
-  }
-},
+  {
+    id: 2,
+    title: "US Macro Strategy: Fed Policy, Global Realignment & AI Labor Risk",
+    type: "Economic Essay",
+    date: "Feb 13, 2026",
+    recommendation: "Short Duration / Hard Assets",
+    summary: "Macro research paper arguing Warsh's dovish nomination masks structural deterioration. Western realignment toward Beijing and East Asian demographics erode long-end Treasury demand, while AI productivity gains risk accelerating layoffs faster than rate cuts can absorb.",
+    tags: ["Monetary Policy", "Geopolitics", "Rates"],
+    pdfLink: "https://drive.google.com/file/d/1vy3A0o8TWdphjTlfIRDx_TFeCq5ecbHd/view?usp=drive_link",
+    modalData: {
+      category: "MACRO STRATEGY",
+      metrics: [
+        { label: "CORE PCE", value: "2.8%" },
+        { label: "FED FUNDS", value: "3.50-3.75%" },
+        { label: "OUTLOOK", value: "Short Duration" }
+      ],
+      overview: "Published macro research paper examining Warsh's Fed Chair nomination, the 'productive dovishness' paradox (AI-driven rate cuts that could accelerate layoffs), yield curve normalization after the longest inversion in U.S. history, credit spread widening from record corporate issuance, and structural inflation risks from AI capex competition. Recommends underweighting long-duration Treasuries and positioning in 2-5 year maturities.",
+      thesis: [
+        { title: "Warsh Paradox", desc: "If AI raises productivity and firms need fewer workers, rate cuts meant to support employment may instead accelerate layoffs." },
+        { title: "Long-End Structural Pressure", desc: "China reducing Treasury holdings, Japan facing demographic selling pressure, OBBB adding $3T in unfunded deficits." },
+        { title: "Inflation Stall", desc: "Core PCE stuck at 2.8% with structural drivers (AI capex, tight labor, fiscal expansion) unlikely to resolve in 2026." }
+      ]
+    }
+  },
   {
     id: 3,
+    title: "The Home Depot (HD) - Long Pitch",
+    type: "Equity Research",
+    date: "Sep 19, 2025",
+    recommendation: "BUY",
+    summary: "Developed 'Buy' recommendation centered on HD's professional contractor ('Pro') moat and earnings resilience from the 2025 Fed easing cycle.",
+    tags: ["Equity", "Retail", "Cyclical"],
+    pdfLink: "https://drive.google.com/file/d/1SIZFOT_Gffy8bDCiKLn3qIHTXZvOv5iU/view?usp=drive_link",
+    modalData: {
+      category: "EQUITY RESEARCH",
+      metrics: [
+        { label: "MARKET CAP", value: "~$410B" },
+        { label: "DIV YIELD", value: "2.23%" },
+        { label: "RECOMMENDATION", value: "BUY" }
+      ],
+      overview: "Developed 'Buy' recommendation and 13-page pitch deck centered on HD's professional contractor ('Pro') moat and earnings resilience from the 2025 Fed easing cycle. Analyzed dominance in the fragmented home improvement market and the 'lock-in' effect of aging housing stock.",
+      thesis: [
+        { title: "Conquering the Pro Market", desc: "Consolidation creates an unrivaled B2B moat." },
+        { title: "Weaponizing Scale", desc: "Massive scale and tech-driven efficiency create stable margins." },
+        { title: "Asymmetric Bet", desc: "Expected 2025 rate cuts will unlock renovation demand." }
+      ]
+    }
+  },
+  {
+    id: 4,
+    title: "Poland: Europe's Growth Engine",
+    type: "Case Study",
+    date: "Oct 23, 2025",
+    recommendation: "Structural Long",
+    summary: "Identifies Poland as Europe's last structural expansion story. Thesis rests on EU-backed capital inflows and 'nearshoring' trends.",
+    tags: ["EM Europe", "FDI", "Growth"],
+    pdfLink: "https://drive.google.com/file/d/14iVjafj1wyAtSAPzJObt--aHB23KLyae/view?usp=drive_link",
+    modalData: {
+      category: "CASE STUDY",
+      metrics: [
+        { label: "GDP GROWTH", value: "3.3-3.5%" },
+        { label: "CREDIT RATING", value: "A-/A2" },
+        { label: "INFLATION", value: "2.9%" }
+      ],
+      overview: "Published country analysis recommending Poland as Europe's highest-conviction growth story; accurately forecasted 3.3-3.5% 2025 GDP growth (Q3 actual: 3.8% YoY) and WIG20 +33% YTD return driven by EU funds and FDI inflows. Analyzed drivers including the 'China+1' manufacturing shift and NATO/EU institutional safety.",
+      thesis: [
+        { title: "Stability + Growth", desc: "Combines developed-market governance with emerging-market growth rates." },
+        { title: "Capital Inflows", desc: "Largest beneficiary of EU Recovery Funds ($192B through 2027)." },
+        { title: "Nearshoring Hub", desc: "Strategic beneficiary of supply chains moving closer to Western Europe." }
+      ]
+    }
+  },
+  {
+    id: 5,
     title: "Macroeconomic Conditions & The Fed",
     type: "Economic Essay",
     date: "Sep 21, 2025",
     recommendation: "Bearish Steepener",
     summary: "Analysis of the Federal Reserve's shift from tightening to easing. Identifies risks in 'sticky' services inflation and labor market weakness.",
     tags: ["Monetary Policy", "Inflation", "Rates"],
-    pdfLink: "https://drive.google.com/file/d/1OttFGlGCwCzBYFfnW9KIUrKd39C_qF4e/view?usp=drive_link", 
+    pdfLink: "https://drive.google.com/file/d/1OttFGlGCwCzBYFfnW9KIUrKd39C_qF4e/view?usp=drive_link",
     modalData: {
       category: "ECONOMIC ESSAY",
       metrics: [
@@ -101,26 +149,26 @@ const INITIAL_PROJECTS = [
     }
   },
   {
-    id: 4,
-    title: "Poland: Europe's Growth Engine",
-    type: "Case Study",
-    date: "Oct 23, 2025",
-    recommendation: "Structural Long",
-    summary: "Identifies Poland as Europe's last structural expansion story. Thesis rests on EU-backed capital inflows and 'nearshoring' trends.",
-    tags: ["EM Europe", "FDI", "Growth"],
-    pdfLink: "https://drive.google.com/file/d/14iVjafj1wyAtSAPzJObt--aHB23KLyae/view?usp=drive_link", 
+    id: 6,
+    title: "eBay (EBAY) Bond Recommendation",
+    type: "Fixed Income",
+    date: "Sep 24, 2025",
+    recommendation: "Buy 6.3% 2032 Bond",
+    summary: "Fixed income analysis recommending eBay's 2032 corporate bonds. The pitch highlights eBay's asset-light model which generates consistent free cash flow (~$2B/year).",
+    tags: ["Tech", "Bonds"],
+    pdfLink: "https://drive.google.com/file/d/1CSSnnRQgAiIaO8flBBPs1NjD1-5BoeUu/view?usp=drive_link",
     modalData: {
-      category: "CASE STUDY",
+      category: "FIXED INCOME",
       metrics: [
-        { label: "GDP GROWTH", value: "3.3-3.5%" },
-        { label: "CREDIT RATING", value: "A-/A2" },
-        { label: "INFLATION", value: "2.9%" }
+        { label: "COUPON", value: "6.3%" },
+        { label: "MATURITY", value: "2032" },
+        { label: "Z-SPREAD", value: "110 bps" }
       ],
-      overview: "Published country analysis recommending Poland as Europe's highest-conviction growth story; accurately forecasted 3.3-3.5% 2025 GDP growth (Q3 actual: 3.8% YoY) and WIG20 +33% YTD return driven by EU funds and FDI inflows. Analyzed drivers including the 'China+1' manufacturing shift and NATO/EU institutional safety.",
+      overview: "A fixed income analysis recommending eBay's 2032 corporate bonds. The pitch highlights eBay's asset-light model which generates consistent free cash flow (~$2B/year). The analysis contrasts eBay against weaker peers like Etsy, positioning the bond as a defensive yet high-yielding play in a shifting rate environment.",
       thesis: [
-        { title: "Stability + Growth", desc: "Combines developed-market governance with emerging-market growth rates." },
-        { title: "Capital Inflows", desc: "Largest beneficiary of EU Recovery Funds ($192B through 2027)." },
-        { title: "Nearshoring Hub", desc: "Strategic beneficiary of supply chains moving closer to Western Europe." }
+        { title: "Income Advantage", desc: "6.3% coupon offers strong current income vs peers." },
+        { title: "Financial Strength", desc: "2.6x leverage and 9x interest coverage with ~$5B cash." },
+        { title: "Fed Catalyst", desc: "7-year maturity benefits from expected yield curve normalization." }
       ]
     }
   }
@@ -392,7 +440,19 @@ const Portfolio = () => {
                     <div className={`text-lg mb-2 ${darkMode ? 'text-gray-300' : 'text-neutral-800'}`}>Pamplin College of Business</div>
                     <div className={`font-medium mb-3 ${darkMode ? 'text-white' : 'text-blue-700'}`}>B.S. in Finance (CFA & Investment Management)</div>
                     <div className={`text-sm italic mb-2 ${darkMode ? 'text-gray-400' : 'text-neutral-600'}`}>Minors: Philosophy, Politics, and Economics & International Relations</div>
-                    <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-neutral-600'}`}><span className="font-semibold">GPA:</span> 3.5/4.00 | Dean's List (F24)</div>
+                    <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-neutral-600'}`}><span className="font-semibold">GPA:</span> 3.52/4.00 | Dean's List (F25)</div>
+                    <div className="mt-10">
+                    <div className="flex justify-between items-baseline mb-2">
+                        <h5 className="text-xl font-bold">BASIS (Bond And Securities Investing by Students)</h5>
+                        <span className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Mar 2026 - Present</span>
+                    </div>
+                    <div className={`text-lg mb-2 ${darkMode ? 'text-gray-300' : 'text-neutral-800'}`}>Virginia Tech Foundation Endowment</div>
+                    <div className={`font-medium mb-3 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Junior Analyst - $5MM Fixed Income Portfolio</div>
+                    <ul className={`list-disc list-outside text-sm space-y-3 ml-4 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
+                        <li>Create and deliver macro-economic analysis, buy/sell recommendations, and curve positioning for sovereigns, agencies, and UST.</li>
+                        <li>Contribute quantitative and qualitative analysis of trends on existing and potential portfolio investments using Bloomberg.</li>
+                    </ul>
+                 </div>
                  </div>
                </div>
             </div>
@@ -409,7 +469,7 @@ const Portfolio = () => {
                         <h5 className="text-xl font-bold">Ravld</h5>
                         <span className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Sep 2025 - Present</span>
                     </div>
-                    <div className={`font-medium mb-4 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Founder and CEO | Blacksburg, Virginia</div>
+                    <div className={`font-medium mb-4 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Founder and Owner | Blacksburg, Virginia</div>
                     <ul className={`list-disc list-outside text-sm space-y-3 ml-4 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
                         <li>Conducted 50+ surveys to validate demand, pricing, and design preferences for a Gen Z streetwear brand.</li>
                         <li>Built brand identity, product mockups, and the initial website framework to prepare for pre-launch testing.</li>
@@ -449,7 +509,6 @@ const Portfolio = () => {
                         <div className={`text-sm font-medium mb-3 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Lead Analyst, Markets Team</div>
                         <ul className={`list-disc list-outside text-sm space-y-2 ml-4 ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
                             <li>Led weekly macro and sector discussions for ~20 analysts; prepared market briefs on rates, equities, and credit.</li>
-                            <li>Tracked Fed policy, inflation prints, and yield curve movements to inform club-wide outlook.</li>
                             <li>Mentored new analysts on research process, data sourcing, and structuring investment theses.</li>
                         </ul>
                      </div>
@@ -463,20 +522,6 @@ const Portfolio = () => {
                         <div className={`text-sm font-medium mb-3 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Fundraising, Culture, and Public Relations Committee Advisor</div>
                         <ul className={`list-disc list-outside text-sm space-y-2 ml-4 ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
                             <li>Launched the chapter's first Alumni Board with VP of Public Relations and coordinated outreach to 550+ alumni.</li>
-                            <li>Supported fundraising strategy by identifying targets and planning events that increased participation.</li>
-                        </ul>
-                     </div>
-
-                     {/* Rhizome */}
-                     <div>
-                        <div className="flex justify-between items-baseline mb-2">
-                            <h5 className="text-lg font-bold">Rhizome Living Learning Community</h5>
-                            <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Aug 2024 - May 2025</span>
-                        </div>
-                        <div className={`text-sm font-medium mb-3 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Freshman Community Leader</div>
-                        <ul className={`list-disc list-outside text-sm space-y-2 ml-4 ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
-                            <li>Organized recycling drives and energy-saving challenges, raising dorm recycling rates by 20%.</li>
-                            <li>Built a week-long sustainability curriculum for elementary students.</li>
                         </ul>
                      </div>
                  </div>
@@ -595,7 +640,7 @@ const Portfolio = () => {
       {/* Footer - With Discreet Admin Button */}
       <footer className={`py-12 border-t transition-colors duration-300 ${darkMode ? 'bg-black border-white/20 text-gray-500' : 'bg-neutral-900 text-neutral-400 border-neutral-800'}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm">© 2025 Shubham Agarwal. All rights reserved.</p>
+          <p className="text-sm">© 2026 Shubham Agarwal. All rights reserved.</p>
           
           <div className="flex items-center space-x-6 mt-4 md:mt-0">
              {/* Discreet Admin Button - Just a lock icon in the footer */}
