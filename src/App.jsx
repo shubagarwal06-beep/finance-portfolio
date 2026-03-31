@@ -20,6 +20,7 @@ import {
   Sun,
   FileText
 } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 
 // --- CONFIGURATION AND PDF LINKS ---
 const LINKEDIN_URL = "https://www.linkedin.com/in/shubham-agarwal-45542b328/";
@@ -785,6 +786,7 @@ const Portfolio = () => {
           </div>
         </div>
       )}
+      <Analytics />
     </div>
   );
 };
