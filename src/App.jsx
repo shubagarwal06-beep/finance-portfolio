@@ -358,7 +358,7 @@ export default function Portfolio() {
           <div className="hero-copy">
             <p className="eyebrow">Finance & Investment Management</p>
             <h1 id="hero-title">Shubham<br />Agarwal<span>.</span></h1>
-            <p className="positioning">Finance student focused on markets, credit, and macro research</p>
+            <p className="positioning">Finance student focused on markets, equity and credit research, and macro</p>
             <p className="hero-school">Virginia Tech <span aria-hidden="true">/</span> Pamplin College of Business</p>
             <div className="hero-actions">
               <a className="button button-primary" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer"><Linkedin size={17} aria-hidden="true" /> LinkedIn <ArrowUpRight size={15} aria-hidden="true" /></a>
