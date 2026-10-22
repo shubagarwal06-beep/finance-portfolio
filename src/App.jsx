@@ -1,42 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  TrendingUp, 
-  Globe, 
-  Briefcase, 
-  DollarSign, 
-  BarChart3, 
-  ArrowUpRight,
-  X,
-  Download,
-  Mail,
-  Linkedin,
-  Cpu,
-  MessageSquare,
-  Lightbulb,
-  ChevronRight,
-  PieChart,
-  Lock,
-  Moon,
-  Sun,
-  FileText
-} from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Activity, ArrowDown, ArrowUpRight, Linkedin, Mail, Moon, Sun, TrendingUp, X } from 'lucide-react';
 
-// --- CONFIGURATION AND PDF LINKS ---
-const LINKEDIN_URL = "https://www.linkedin.com/in/shubham-agarwal-45542b328/";
-// IMPORTANT: Replace these placeholders with your actual public Google Drive PDF links.
-// Using `https://docs.google.com/viewer?url=...` is best for viewing PDFs in-browser.
-const RESUME_LINK = "https://drive.google.com/file/d/1vglt0626306xzjKJkBJZsczKBmKXEf6k/view?usp=drive_link"; 
+const LINKEDIN_URL = 'https://www.linkedin.com/in/shubham-agarwal-45542b328/';
+const EMAIL = 'shubh4m@vt.edu';
+const HIMS_PITCH_URL = 'https://www.perplexity.ai/computer/a/hims-stock-pitch-ShgSq1nMR_60qZKx9pvckw';
+
+const FEATURED_PROJECTS = [
+  {
+    title: "Iran War Live Dashboard",
+    eyebrow: "Macro Research Tool",
+    date: "2026",
+    summary: "Live geopolitical risk monitor tracking Brent, WTI, and the Treasury curve in real time. Classifies breaking headlines via a two-pass LLM classifier and updates a probability-weighted Brent scenario tree across military escalation, diplomatic resolution, and Hormuz disruption paths.",
+    tags: ["Macro", "Fixed Income", "Geopolitics"],
+    href: "https://iran-war-dashboard-silk.vercel.app/",
+    ctaLabel: "Open Live Dashboard",
+    icon: Activity
+  },
+  {
+    title: "Hims & Hers Health (HIMS) - Long Pitch",
+    eyebrow: "Equity Pitch Competition",
+    date: "Spring 2026",
+    summary: "Long equity pitch built as an interactive web app for the Perplexity Computer Stock Pitch Competition. Probability-weighted price target of $32.05, implying roughly 67% upside. Differentiated angles include the Novo Nordisk lawsuit withdrawal as distribution optionality, the FDA Commissioner's DTC telehealth affiliation, and the CS Bio acquisition as a vertical manufacturing asset.",
+    tags: ["Equity", "Healthcare", "Long"],
+    href: HIMS_PITCH_URL,
+    ctaLabel: "View Interactive Pitch",
+    icon: TrendingUp
+  }
+];
 
 const INITIAL_PROJECTS = [
   {
     id: 1,
+    title: "Hims & Hers Health (HIMS) - Long Pitch",
+    type: "Equity",
+    date: "Spring 2026",
+    recommendation: "Long",
+    summary: "Interactive long pitch on HIMS arguing the market underprices GLP-1 distribution optionality, improving regulatory conditions for personalized telehealth, and the strategic value of CS Bio as a vertically integrated manufacturing asset.",
+    tags: ["Equity", "Healthcare", "Long"],
+    projectLink: HIMS_PITCH_URL,
+    linkLabel: "View Interactive Pitch",
+    modalData: {
+      category: "EQUITY PITCH COMPETITION",
+      metrics: [
+        { label: "STANCE", value: "Long" },
+        { label: "PRICE TARGET", value: "$32.05" },
+        { label: "UPSIDE", value: "~67%" },
+        { label: "FORMAT", value: "Interactive Web App" },
+        { label: "PLATFORM", value: "Perplexity Computer" }
+      ],
+      overview: "Long pitch on Hims & Hers Health (NYSE: HIMS) submitted to the Perplexity Computer Stock Pitch Competition. Probability-weighted scenarios produce a price target of $32.05 against a roughly 67% implied upside at time of pitch, with a bull case of $45.04 (30%), base of $28.86 (55%), and bear of $17.75 (15%).",
+      thesis: [
+        { title: "GLP-1 Optionality Re-Rates the Story", desc: "Novo Nordisk lawsuit withdrawal reframes the GLP-1 narrative as a distribution partnership rather than a legal overhang, opening optionality on branded compounding revenue." },
+        { title: "Regulatory Risk Looks Lower Than Market Fears", desc: "New FDA Commissioner's prior DTC telehealth affiliation lowers regulatory tail risk on the personalization model that drives HIMS margin." },
+        { title: "CS Bio Adds Strategic Supply Control", desc: "CS Bio acquisition is mispriced as a cost line item; treating it as a vertical drug manufacturing asset materially shifts the long-term margin and supply-control story." }
+      ]
+    }
+  },
+  {
+    id: 2,
     title: "Kraft Heinz (KHC) Bond Recommendation",
     type: "Fixed Income",
     date: "Feb 20, 2026",
     recommendation: "Buy 6.375% 2028 Bond",
     summary: "Analyzed KHC's $21B debt stack to evaluate risk across two bonds with identical credit ratings. Identified asymmetric obligor and duration exposure on the long end, recommending the short-dated 2028 bond as the optimal risk-adjusted position.",
     tags: ["Investment Grade", "Consumer Staples", "DCM"],
-    pdfLink: "https://drive.google.com/file/d/1yOYJYfvtZ4EFxvMrRPwBKd2y_RkfXZt3/view?usp=drive_link",
+    projectLink: "https://drive.google.com/file/d/1yOYJYfvtZ4EFxvMrRPwBKd2y_RkfXZt3/view?usp=drive_link",
+    linkLabel: "View Project PDF",
     modalData: {
       category: "FIXED INCOME / DCM",
       metrics: [
@@ -53,14 +82,15 @@ const INITIAL_PROJECTS = [
     }
   },
   {
-    id: 2,
+    id: 3,
     title: "US Macro Strategy: Fed Policy, Global Realignment & AI Labor Risk",
     type: "Economic Essay",
     date: "Feb 13, 2026",
     recommendation: "Short Duration / Hard Assets",
     summary: "Macro research paper arguing Warsh's dovish nomination masks structural deterioration. Western realignment toward Beijing and East Asian demographics erode long-end Treasury demand, while AI productivity gains risk accelerating layoffs faster than rate cuts can absorb.",
     tags: ["Monetary Policy", "Geopolitics", "Rates"],
-    pdfLink: "https://drive.google.com/file/d/1vy3A0o8TWdphjTlfIRDx_TFeCq5ecbHd/view?usp=drive_link",
+    projectLink: "https://drive.google.com/file/d/1vy3A0o8TWdphjTlfIRDx_TFeCq5ecbHd/view?usp=drive_link",
+    linkLabel: "View Project PDF",
     modalData: {
       category: "MACRO STRATEGY",
       metrics: [
@@ -77,14 +107,15 @@ const INITIAL_PROJECTS = [
     }
   },
   {
-    id: 3,
+    id: 4,
     title: "The Home Depot (HD) - Long Pitch",
     type: "Equity Research",
     date: "Sep 19, 2025",
     recommendation: "BUY",
     summary: "Developed 'Buy' recommendation centered on HD's professional contractor ('Pro') moat and earnings resilience from the 2025 Fed easing cycle.",
     tags: ["Equity", "Retail", "Cyclical"],
-    pdfLink: "https://drive.google.com/file/d/1SIZFOT_Gffy8bDCiKLn3qIHTXZvOv5iU/view?usp=drive_link",
+    projectLink: "https://drive.google.com/file/d/1SIZFOT_Gffy8bDCiKLn3qIHTXZvOv5iU/view?usp=drive_link",
+    linkLabel: "View Project PDF",
     modalData: {
       category: "EQUITY RESEARCH",
       metrics: [
@@ -101,14 +132,15 @@ const INITIAL_PROJECTS = [
     }
   },
   {
-    id: 4,
+    id: 5,
     title: "Poland: Europe's Growth Engine",
     type: "Case Study",
     date: "Oct 23, 2025",
     recommendation: "Structural Long",
     summary: "Identifies Poland as Europe's last structural expansion story. Thesis rests on EU-backed capital inflows and 'nearshoring' trends.",
     tags: ["EM Europe", "FDI", "Growth"],
-    pdfLink: "https://drive.google.com/file/d/14iVjafj1wyAtSAPzJObt--aHB23KLyae/view?usp=drive_link",
+    projectLink: "https://drive.google.com/file/d/14iVjafj1wyAtSAPzJObt--aHB23KLyae/view?usp=drive_link",
+    linkLabel: "View Project PDF",
     modalData: {
       category: "CASE STUDY",
       metrics: [
@@ -125,14 +157,15 @@ const INITIAL_PROJECTS = [
     }
   },
   {
-    id: 5,
+    id: 6,
     title: "Macroeconomic Conditions & The Fed",
     type: "Economic Essay",
     date: "Sep 21, 2025",
     recommendation: "Bearish Steepener",
     summary: "Analysis of the Federal Reserve's shift from tightening to easing. Identifies risks in 'sticky' services inflation and labor market weakness.",
     tags: ["Monetary Policy", "Inflation", "Rates"],
-    pdfLink: "https://drive.google.com/file/d/1OttFGlGCwCzBYFfnW9KIUrKd39C_qF4e/view?usp=drive_link",
+    projectLink: "https://drive.google.com/file/d/1OttFGlGCwCzBYFfnW9KIUrKd39C_qF4e/view?usp=drive_link",
+    linkLabel: "View Project PDF",
     modalData: {
       category: "ECONOMIC ESSAY",
       metrics: [
@@ -149,14 +182,15 @@ const INITIAL_PROJECTS = [
     }
   },
   {
-    id: 6,
+    id: 7,
     title: "eBay (EBAY) Bond Recommendation",
     type: "Fixed Income",
     date: "Sep 24, 2025",
     recommendation: "Buy 6.3% 2032 Bond",
     summary: "Fixed income analysis recommending eBay's 2032 corporate bonds. The pitch highlights eBay's asset-light model which generates consistent free cash flow (~$2B/year).",
     tags: ["Tech", "Bonds"],
-    pdfLink: "https://drive.google.com/file/d/1CSSnnRQgAiIaO8flBBPs1NjD1-5BoeUu/view?usp=drive_link",
+    projectLink: "https://drive.google.com/file/d/1CSSnnRQgAiIaO8flBBPs1NjD1-5BoeUu/view?usp=drive_link",
+    linkLabel: "View Project PDF",
     modalData: {
       category: "FIXED INCOME",
       metrics: [
@@ -174,619 +208,265 @@ const INITIAL_PROJECTS = [
   }
 ];
 
-const Portfolio = () => {
-  const [projects, setProjects] = useState(INITIAL_PROJECTS);
-  const [filter, setFilter] = useState('All');
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+const EXPERIENCE = [
+  {
+    company: 'Sodexo',
+    location: 'Bethesda, MD',
+    role: 'Strategic Initiatives Analyst Intern',
+    dates: 'June 2026 – Present',
+    points: [
+      'Built scenario-based restructuring models across 1,600+ employees and 200+ workforce actions, identifying $8M+ in annualized cost savings.',
+      'Built a North American workforce dashboard and presented findings to the Head of HR, North America.',
+      "Presented an enterprise LLM and agentic AI roadmap to Sodexo Canada's CFO."
+    ]
+  },
+  {
+    company: 'BASIS',
+    fullName: 'Bond And Securities Investing by Students',
+    location: 'Virginia Tech',
+    role: 'Junior Fixed Income Analyst, TMT & Consumer Coverage',
+    dates: 'March 2026 – Present',
+    points: [
+      'Student-run team managing a $5MM fixed income portfolio within the Virginia Tech Foundation endowment.',
+      'Monitor $100K+ in holdings and present weekly macro, rates, and credit views, including U.S. Treasury curve positioning.',
+      'Evaluate TMT and consumer issuers.'
+    ]
+  },
+  {
+    company: 'Papinee',
+    location: 'Remote',
+    role: 'Finance & Strategy Intern',
+    dates: 'June 2025 – September 2025',
+    points: [
+      'Modeled unit economics and built pricing and go-to-market plans for a Southeast Asian DTC launch, generating 250+ early signups and supporting a $150K pre-seed raise.'
+    ]
+  }
+];
+
+const FILTERS = ['All', 'Equity', 'Credit', 'Macro', 'Emerging Markets'];
+
+function matchesFilter(project, filter) {
+  if (filter === 'All') return true;
+  if (filter === 'Credit') return project.type === 'Fixed Income';
+  if (filter === 'Macro') return project.type === 'Economic Essay' || project.tags.includes('Macro');
+  if (filter === 'Emerging Markets') return project.type === 'Case Study';
+  return project.type?.includes(filter) || project.tags.includes(filter);
+}
+
+function initialTheme() {
+  try {
+    const saved = localStorage.getItem('portfolio-theme');
+    if (saved === 'dark' || saved === 'light') return saved === 'dark';
+  } catch { /* Default to light mode when storage is unavailable. */ }
+  return false;
+}
+
+function ProjectDialog({ project, onClose }) {
+  const dialogRef = useRef(null);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    const dialog = dialogRef.current;
+    const previousFocus = document.activeElement;
+    dialog.showModal();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) previousFocus.focus();
+    };
+  }, []);
+
+  return (
+    <dialog
+      ref={dialogRef}
+      className="project-dialog"
+      aria-labelledby="project-title"
+      onCancel={(event) => { event.preventDefault(); onClose(); }}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) {
+          const rect = event.currentTarget.getBoundingClientRect();
+          if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose();
+        }
+      }}
+    >
+      <div className="dialog-heading">
+        <div>
+          <p className="eyebrow">{project.modalData.category}</p>
+          <h2 id="project-title">{project.title}</h2>
+          <p className="muted">Analysis date: {project.date}</p>
+        </div>
+        <button className="icon-button" onClick={onClose} aria-label="Close research details" autoFocus><X size={20} /></button>
+      </div>
+      <div className="dialog-content">
+        <dl className="metrics">
+          {project.modalData.metrics.map((metric) => (
+            <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}</dd></div>
+          ))}
+        </dl>
+        <h3>Overview</h3>
+        <p>{project.modalData.overview}</p>
+        <h3>Investment thesis</h3>
+        <ol className="thesis-list">
+          {project.modalData.thesis.map((point) => (
+            <li key={point.title}><h4>{point.title}</h4><p>{point.desc}</p></li>
+          ))}
+        </ol>
+        <a className="button button-primary" href={project.projectLink} target="_blank" rel="noopener noreferrer">
+          {project.linkLabel} <ArrowUpRight size={16} aria-hidden="true" />
+        </a>
+      </div>
+    </dialog>
+  );
+}
+
+export default function Portfolio() {
+  const [darkMode, setDarkMode] = useState(initialTheme);
+  const [filter, setFilter] = useState('All');
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', darkMode ? '#15191e' : '#faf9f6');
+    try {
+      localStorage.setItem('portfolio-theme', darkMode ? 'dark' : 'light');
+    } catch { /* The theme still works when storage is unavailable. */ }
   }, [darkMode]);
 
-  const [newProject, setNewProject] = useState({
-    title: '',
-    type: 'Equity',
-    date: '',
-    recommendation: '',
-    summary: '',
-    tags: '',
-    pdfLink: '#',
-    modalData: {
-        category: "NEW ANALYSIS",
-        metrics: [
-            { label: "METRIC 1", value: "TBD" },
-            { label: "METRIC 2", value: "TBD" },
-            { label: "STATUS", value: "Draft" }
-        ],
-        overview: "Project details to be added...",
-        thesis: [
-            { title: "Thesis Point 1", desc: "Description..." },
-            { title: "Thesis Point 2", desc: "Description..." },
-            { title: "Thesis Point 3", desc: "Description..." }
-        ]
-    }
-  });
+  const featuredProjects = FEATURED_PROJECTS.filter((project) => matchesFilter(project, filter));
+  const archiveProjects = INITIAL_PROJECTS.filter((project) => project.id !== 1 && matchesFilter(project, filter));
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewProject(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const projectToAdd = {
-      id: projects.length + 1,
-      ...newProject,
-      tags: newProject.tags.split(',').map(tag => tag.trim())
-    };
-    setProjects([projectToAdd, ...projects]);
-    setIsFormOpen(false);
-    setNewProject({ title: '', type: 'Equity', date: '', recommendation: '', summary: '', tags: '', pdfLink: '#', modalData: newProject.modalData });
-  };
-
-  const filteredProjects = projects.filter(project => {
-    return filter === 'All' || project.type.includes(filter) || (filter === 'Credit' && project.type === 'Fixed Income') || (filter === 'Macro' && project.type === 'Economic Essay') || (filter === 'Emerging Markets' && project.type === 'Case Study');
-  });
-
-  // Helper function for the Resume link logic
-  const handleResumeClick = () => {
-    // Open the PDF directly in a new tab using the public Google Viewer method
-    window.open(RESUME_LINK, '_blank'); 
-  };
-  
   return (
-    <div className={`min-h-screen transition-colors duration-300 font-serif ${darkMode ? 'bg-black text-gray-100' : 'bg-white text-neutral-900'}`}>
-      
-      {/* Navigation / Header */}
-      <header className={`border-b sticky top-0 z-40 backdrop-blur-md transition-colors duration-300 ${darkMode ? 'bg-black/90 border-white/20' : 'bg-white/95 border-neutral-100'}`}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className={`p-2.5 rounded-lg shadow-lg ${darkMode ? 'bg-white' : 'bg-neutral-900'}`}>
-              <PieChart className={`w-6 h-6 ${darkMode ? 'text-black' : 'text-white'}`} />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">Shubham Agarwal</h1>
-              <p className={`text-[11px] font-bold uppercase tracking-widest mt-0.5 ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Finance Portfolio</p>
-            </div>
-          </div>
-          <div className="flex items-center space-x-8">
-            <nav className="hidden md:flex space-x-10">
-              {['About', 'Portfolio', 'Resume', 'Contact'].map((item) => (
-                <a 
-                  key={item}
-                  href={`#${item.toLowerCase()}`} 
-                  className={`text-sm font-semibold transition-colors ${darkMode ? 'text-gray-300 hover:text-white' : 'text-neutral-600 hover:text-blue-700'}`}
-                >
-                  {item === 'Portfolio' ? 'Research' : item}
-                </a>
-              ))}
-            </nav>
-            <button 
-              onClick={() => setDarkMode(!darkMode)}
-              className={`p-2 rounded-full transition-colors border ${darkMode ? 'bg-black border-white/20 text-white hover:bg-white/10' : 'bg-neutral-100 border-transparent text-neutral-600 hover:bg-neutral-200'}`}
-            >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-          </div>
+    <>
+      <a className="skip-link" href="#main">Skip to content</a>
+      <header className="site-header">
+        <div className="container nav-layout">
+          <a href="#home" className="wordmark" aria-label="Shubham Agarwal, home">SA<span>.</span></a>
+          <nav aria-label="Main navigation">
+            {['About', 'Experience', 'Research', 'Contact'].map((label) => (
+              <a key={label} href={`#${label.toLowerCase()}`}>{label}</a>
+            ))}
+          </nav>
+          <button className="icon-button theme-toggle" aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`} aria-pressed={darkMode} onClick={() => setDarkMode((previous) => !previous)}>
+            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className={`border-b relative overflow-hidden transition-colors duration-300 ${darkMode ? 'border-white/20' : 'border-neutral-100'}`}>
-        <div className="max-w-6xl mx-auto px-4 py-28 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl">
-            <h2 className="text-6xl md:text-7xl font-bold mb-8 tracking-tight leading-none">
-              Analyzing Markets,<br/>
-              <span className={`${darkMode ? 'text-white border-b-4 border-white' : 'text-blue-700'}`}>Uncovering Value.</span>
-            </h2>
-            <p className={`text-2xl leading-relaxed mb-12 max-w-2xl ${darkMode ? 'text-gray-400 font-light' : 'text-neutral-500 font-light'}`}>
-              Bridging macroeconomic analysis with fundamental equity and credit research.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="#portfolio" className={`flex items-center px-8 py-4 rounded-xl font-medium transition-all text-lg ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-xl shadow-blue-600/20'}`}>
-                View Analysis <ArrowUpRight className="w-5 h-5 ml-2" />
-              </a>
+      <main id="main">
+        <section id="home" className="hero container" aria-labelledby="hero-title">
+          <div className="hero-copy">
+            <p className="eyebrow">Finance & Investment Management</p>
+            <h1 id="hero-title">Shubham<br />Agarwal<span>.</span></h1>
+            <p className="positioning">Finance student focused on markets, credit, and macro research</p>
+            <p className="hero-school">Virginia Tech <span aria-hidden="true">/</span> Pamplin College of Business</p>
+            <div className="hero-actions">
+              <a className="button button-primary" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer"><Linkedin size={17} aria-hidden="true" /> LinkedIn <ArrowUpRight size={15} aria-hidden="true" /></a>
+              <a className="button button-secondary" href={`mailto:${EMAIL}`}><Mail size={17} aria-hidden="true" /> Email me</a>
             </div>
+            <a className="text-link explore-link" href="#research">Explore my research <ArrowDown size={15} aria-hidden="true" /></a>
           </div>
-        </div>
-      </section>
+          <figure className="portrait">
+            <img src="/profile.jpg" alt="Shubham Agarwal" width="800" height="800" fetchPriority="high" decoding="async" />
+            <figcaption>Virginia Tech <span>Expected 2028</span></figcaption>
+          </figure>
+        </section>
 
-      {/* About Section - With Photo (Header Centered) */}
-      <section id="about" className={`py-24 border-b transition-colors duration-300 ${darkMode ? 'bg-black border-white/20' : 'bg-neutral-50 border-neutral-200'}`}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* FIX: Centered Header */}
-          <h2 className="text-4xl font-bold mb-16 text-center">About Me</h2>
-          
-          <div className="flex flex-col md:flex-row items-center gap-16">
-            {/* Profile Photo */}
-            <div className="md:w-1/3 flex justify-center">
-              <div className={`relative w-72 h-72 rounded-full overflow-hidden border-8 shadow-2xl ${darkMode ? 'border-neutral-800' : 'border-white'}`}>
-                <img 
-                  src="/profile.jpg" 
-                  alt="Shubham Agarwal" 
-                  className="w-full h-full object-cover"
-                />
+        <section id="about" className="section section-tinted" aria-labelledby="about-title">
+          <div className="container section-grid">
+            <div className="section-heading"><p className="eyebrow">01 / Background</p><h2 id="about-title">About</h2></div>
+            <div className="about-content">
+              <p className="intro">I study finance at Virginia Tech, with a focus on markets, credit, and macro research.</p>
+              <p className="muted about-description">I’m pursuing internships in sales & trading, credit and fixed income, macro, and equity research. My experience spans corporate strategy, fixed income investing, and finance.</p>
+              <div className="education">
+                <p className="eyebrow">Education</p>
+                <h3>Virginia Tech</h3>
+                <p className="muted">Pamplin College of Business</p>
+                <p className="degree">B.S. in Finance (CFA & Investment Management)</p>
+                <p className="muted">Minors in Philosophy, Politics, Economics & International Relations</p>
               </div>
             </div>
-
-            {/* Bio Text */}
-            <div className={`md:w-2/3 prose prose-lg leading-relaxed font-light ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
-              <p className="mb-6">
-                My interest in markets began at fifteen during the GameStop short squeeze, when I saw how psychology, incentives, and technology could move prices as much as fundamentals. That curiosity pushed me to start investing early, where I learned about risk, patience, and value creation firsthand.
-              </p>
-              <p className="mb-6">
-                I now study Finance at <strong>Virginia Tech</strong> with minors in <em>Philosophy, Politics & Economics</em> and <em>International Relations</em>. My work focuses on equity and credit research, macroeconomic analysis, and understanding how political and economic systems shape outcomes.
-              </p>
-              <p className="mb-6">
-                I enjoy breaking complex ideas into clear insights and connecting company narratives to broader market forces.
-              </p>
-              <p>
-                I'm drawn to roles where I can think analytically, work with data, and contribute to decisions that have real-world impact across industries and global markets.
-              </p>
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Projects Section */}
-      <section id="portfolio" className={`py-24 border-b transition-colors duration-300 ${darkMode ? 'bg-black border-white/20' : 'bg-white border-neutral-100'}`}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16">
+        <section id="experience" className="section" aria-labelledby="experience-title">
+          <div className="container section-grid">
+            <div className="section-heading"><p className="eyebrow">02 / Experience</p><h2 id="experience-title">Experience</h2></div>
             <div>
-              <h3 className="text-3xl font-bold mb-3">Featured Research</h3>
-              <p className={`font-light ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Selected investment pitches and market notes.</p>
+              <div className="experience-list">
+                {EXPERIENCE.map((job) => (
+                  <article className="experience-item" key={job.company}>
+                    <div className="experience-meta"><h3>{job.company}</h3><p>{job.dates}</p></div>
+                    {job.fullName && <p className="company-expansion">{job.fullName}</p>}
+                    <p className="role">{job.role}</p>
+                    <p className="location">{job.location}</p>
+                    <ul>{job.points.map((point) => <li key={point}>{point}</li>)}</ul>
+                  </article>
+                ))}
+              </div>
+              <div className="leadership">
+                <h3 className="eyebrow">Leadership</h3>
+                <article><div className="experience-meta"><h4>Virginia Tech Finance Club</h4><p>April 2026 – Present</p></div><p className="muted">Lead Analyst, Equities</p></article>
+                <article><div className="experience-meta"><h4>Delta Sigma Pi</h4><p>March 2026 – Present</p></div><p className="muted">Fundraising, Culture & Public Relations Committee Advisor</p></article>
+              </div>
             </div>
-            
-            {/* Filter Tabs */}
-            <div className={`p-1.5 rounded-xl mt-6 md:mt-0 overflow-x-auto border transition-colors duration-300 ${darkMode ? 'bg-black border-white/20' : 'bg-neutral-50 border-neutral-100'}`}>
-              {['All', 'Equity', 'Credit', 'Macro', 'Emerging Markets'].map((type) => (
-                <button
-                  key={type}
-                  onClick={() => setFilter(type)}
-                  className={`px-5 py-2 text-sm font-semibold rounded-lg whitespace-nowrap transition-all ${
-                    filter === type 
-                      ? (darkMode ? 'bg-white text-black shadow-sm' : 'bg-white text-neutral-900 shadow-sm ring-1 ring-black/5')
-                      : (darkMode ? 'text-gray-400 hover:text-white' : 'text-neutral-500 hover:text-neutral-900')
-                  }`}
-                >
-                  {type}
-                </button>
+          </div>
+        </section>
+
+        <section id="research" className="section section-tinted" aria-labelledby="research-title">
+          <div className="container">
+            <div className="research-heading">
+              <div className="section-heading"><p className="eyebrow">03 / Selected work</p><h2 id="research-title">Research</h2></div>
+              <p className="muted">Investment pitches, market notes,<br className="desktop-break" /> and applied research tools.</p>
+            </div>
+            <div className="filters" role="group" aria-label="Filter research by focus">
+              {FILTERS.map((type) => <button key={type} aria-pressed={filter === type} className={filter === type ? 'filter active' : 'filter'} onClick={() => setFilter(type)}>{type}</button>)}
+            </div>
+            <div aria-live="polite" aria-atomic="true" className="sr-only">Showing {featuredProjects.length + archiveProjects.length} research projects for {filter}.</div>
+            {featuredProjects.length > 0 && <div className="featured-grid">
+              {featuredProjects.map((project) => {
+                const Icon = project.icon;
+                return (
+                  <article className="featured-card" key={project.title}>
+                    <div className="card-meta"><span className="eyebrow"><Icon size={16} aria-hidden="true" />{project.eyebrow}</span><span>{project.date}</span></div>
+                    <h3><a href={project.href} target="_blank" rel="noopener noreferrer">{project.title}</a></h3>
+                    <p>{project.summary}</p>
+                    <ul className="tags" aria-label="Research topics">{project.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
+                    <div className="card-actions">
+                      <a className="text-link" href={project.href} target="_blank" rel="noopener noreferrer">{project.ctaLabel}<ArrowUpRight size={16} aria-hidden="true" /></a>
+                      {project.href === HIMS_PITCH_URL && <button className="text-link" onClick={() => setSelectedProject(INITIAL_PROJECTS[0])} aria-label="Read HIMS analysis details">Read analysis</button>}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>}
+            {archiveProjects.length > 0 && <div className="research-list">
+              {archiveProjects.map((project) => (
+                <article className="research-row" key={project.id}>
+                  <div className="research-meta"><span className="eyebrow">{project.type}</span><span>{project.date}</span></div>
+                  <div className="research-body">
+                    <h3><button onClick={() => setSelectedProject(project)}>{project.title}<ArrowUpRight size={20} aria-hidden="true" /></button></h3>
+                    <p className="muted">{project.summary}</p>
+                    <ul className="tags" aria-label="Research topics">{project.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
+                    <div className="row-actions"><button className="text-link" onClick={() => setSelectedProject(project)} aria-label={`Read analysis: ${project.title}`}>Read analysis</button><a className="text-link" href={project.projectLink} target="_blank" rel="noopener noreferrer">{project.linkLabel}<ArrowUpRight size={15} aria-hidden="true" /></a></div>
+                  </div>
+                </article>
               ))}
+            </div>}
+          </div>
+        </section>
+
+        <section id="contact" className="section contact-section" aria-labelledby="contact-title">
+          <div className="container section-grid">
+            <div className="section-heading"><p className="eyebrow">04 / Get in touch</p><h2 id="contact-title">Contact</h2></div>
+            <div><p className="intro">Let’s connect.</p><p className="muted contact-description">For internship opportunities and conversations about markets, credit, or research.</p>
+              <div className="contact-links"><a href={`mailto:${EMAIL}`}><Mail size={20} aria-hidden="true" /><span>{EMAIL}</span><ArrowUpRight size={19} aria-hidden="true" /></a><a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer"><Linkedin size={20} aria-hidden="true" /><span>Connect on LinkedIn</span><ArrowUpRight size={19} aria-hidden="true" /></a></div>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {filteredProjects.map((project) => (
-              <div 
-                key={project.id} 
-                onClick={() => setSelectedProject(project)}
-                className={`group rounded-2xl border cursor-pointer transition-all duration-300 flex flex-col overflow-hidden relative ${
-                  darkMode 
-                    ? 'bg-black border-white/20 hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]' 
-                    : 'bg-white border-neutral-200 hover:border-blue-200 hover:shadow-2xl'
-                }`}
-              >
-                <div className="p-10 flex-1">
-                  <div className="flex justify-between items-start mb-6">
-                    <div className={`p-3 rounded-lg ${darkMode ? 'bg-white text-black' : 'bg-blue-50 text-blue-600'}`}>
-                       {project.type === 'Fixed Income' ? <DollarSign className="w-6 h-6" /> : 
-                        project.type === 'Economic Essay' ? <BarChart3 className="w-6 h-6" /> :
-                        project.type === 'Case Study' ? <Globe className="w-6 h-6" /> :
-                        <TrendingUp className="w-6 h-6" />}
-                    </div>
-                    <span className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-neutral-400'}`}>{project.date}</span>
-                  </div>
-                  
-                  <h3 className={`text-2xl font-bold mb-4 transition-colors leading-tight ${darkMode ? 'text-white group-hover:underline decoration-1 underline-offset-4' : 'text-neutral-900 group-hover:text-blue-700'}`}>
-                    {project.title}
-                  </h3>
-                  
-                  <p className={`text-sm leading-relaxed mb-8 font-light ${darkMode ? 'text-gray-400' : 'text-neutral-600'}`}>
-                    {project.summary}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, idx) => (
-                      <span key={idx} className={`px-3 py-1 text-xs font-semibold rounded-md ${darkMode ? 'bg-white text-black' : 'bg-neutral-100 text-neutral-700'}`}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Changed onClick to open the modal (which has the PDF button inside) */}
-                <div className={`px-10 py-5 border-t flex items-center font-semibold text-sm ${darkMode ? 'border-white/20 text-white' : 'border-neutral-50 text-blue-600'}`}>
-                   View Analysis <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FULL Resume Section */}
-      <section id="resume" className={`py-24 border-b transition-colors duration-300 ${darkMode ? 'bg-black border-white/20' : 'bg-white border-neutral-200'}`}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center mb-20">
-            <h3 className="text-4xl font-bold">Resume</h3>
-            {/* RESUME LINK: Opens PDF in new tab */}
-            <button 
-                onClick={handleResumeClick} 
-                className={`flex items-center px-6 py-3 rounded-lg font-medium transition-colors shadow-lg ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-neutral-900 text-white hover:bg-neutral-800'}`}
-            >
-                View PDF <FileText className="w-4 h-4 ml-2" />
-            </button>
-          </div>
-
-          <div className="space-y-20">
-            
-            {/* Education */}
-            <div className={`border-l-2 pl-10 space-y-12 ${darkMode ? 'border-white/20' : 'border-neutral-100'}`}>
-               <div className="relative">
-                 <span className={`absolute -left-[45px] top-1 h-5 w-5 rounded-full border-4 ${darkMode ? 'bg-black border-white' : 'bg-neutral-200 border-white'}`}></span>
-                 <h4 className={`text-xs font-bold uppercase tracking-widest mb-6 ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Education</h4>
-                 
-                 <div className="mb-6">
-                    <div className="flex justify-between items-baseline mb-2">
-                        <h5 className="text-xl font-bold">Virginia Polytechnic Institute and State University (Virginia Tech)</h5>
-                        <span className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Expected: May 2028</span>
-                    </div>
-                    <div className={`text-lg mb-2 ${darkMode ? 'text-gray-300' : 'text-neutral-800'}`}>Pamplin College of Business</div>
-                    <div className={`font-medium mb-3 ${darkMode ? 'text-white' : 'text-blue-700'}`}>B.S. in Finance (CFA & Investment Management)</div>
-                    <div className={`text-sm italic mb-2 ${darkMode ? 'text-gray-400' : 'text-neutral-600'}`}>Minors: Philosophy, Politics, and Economics & International Relations</div>
-                    <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-neutral-600'}`}><span className="font-semibold">GPA:</span> 3.52/4.00 | Dean's List (F25)</div>
-                    <div className="mt-10">
-                    <div className="flex justify-between items-baseline mb-2">
-                        <h5 className="text-xl font-bold">BASIS (Bond And Securities Investing by Students)</h5>
-                        <span className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Mar 2026 - Present</span>
-                    </div>
-                    <div className={`text-lg mb-2 ${darkMode ? 'text-gray-300' : 'text-neutral-800'}`}>Virginia Tech Foundation Endowment</div>
-                    <div className={`font-medium mb-3 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Junior Analyst - $5MM Fixed Income Portfolio</div>
-                    <ul className={`list-disc list-outside text-sm space-y-3 ml-4 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
-                        <li>Create and deliver macro-economic analysis, buy/sell recommendations, and curve positioning for sovereigns, agencies, and UST.</li>
-                        <li>Contribute quantitative and qualitative analysis of trends on existing and potential portfolio investments using Bloomberg.</li>
-                    </ul>
-                 </div>
-                 </div>
-               </div>
-            </div>
-
-            {/* Professional Experience */}
-            <div className={`border-l-2 pl-10 space-y-12 ${darkMode ? 'border-white/20' : 'border-neutral-100'}`}>
-               <div className="relative">
-                 <span className={`absolute -left-[45px] top-1 h-5 w-5 rounded-full border-4 ${darkMode ? 'bg-white border-black' : 'bg-blue-600 border-white'}`}></span>
-                 <h4 className={`text-xs font-bold uppercase tracking-widest mb-6 ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Professional Experience</h4>
-                 
-                 {/* Job 1 */}
-                 <div className="mb-12">
-                    <div className="flex justify-between items-baseline mb-2">
-                        <h5 className="text-xl font-bold">Ravld</h5>
-                        <span className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Sep 2025 - Present</span>
-                    </div>
-                    <div className={`font-medium mb-4 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Founder and Owner | Blacksburg, Virginia</div>
-                    <ul className={`list-disc list-outside text-sm space-y-3 ml-4 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
-                        <li>Conducted 50+ surveys to validate demand, pricing, and design preferences for a Gen Z streetwear brand.</li>
-                        <li>Built brand identity, product mockups, and the initial website framework to prepare for pre-launch testing.</li>
-                        <li>Outlined a phased product roadmap and go-to-market strategy focused on niche positioning and community growth.</li>
-                    </ul>
-                 </div>
-
-                 {/* Job 2 */}
-                 <div>
-                    <div className="flex justify-between items-baseline mb-2">
-                        <h5 className="text-xl font-bold">Papinee</h5>
-                        <span className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>June 2025 - Sep 2025</span>
-                    </div>
-                    <div className={`font-medium mb-4 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Finance and Strategy Intern | Remote</div>
-                    <ul className={`list-disc list-outside text-sm space-y-3 ml-4 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
-                        <li>Secured $150K in pre-seed funding by shaping the MVP, demonstrating cost efficiencies, launch profitability, and a clear path to scalable growth.</li>
-                        <li>Worked with CEO on shifting from B2B to B2C, analyzing products and packaging to plan a 300-unit first release.</li>
-                        <li>Devised a three-stage GTM strategy, defining milestones and KPIs to align product launch, marketing execution, and long-term growth objectives into a cohesive roadmap, growing an early community of 250+ signups.</li>
-                    </ul>
-                 </div>
-               </div>
-            </div>
-
-            {/* Leadership */}
-            <div className={`border-l-2 pl-10 space-y-12 ${darkMode ? 'border-white/20' : 'border-neutral-100'}`}>
-               <div className="relative">
-                 <span className={`absolute -left-[45px] top-1 h-5 w-5 rounded-full border-4 ${darkMode ? 'bg-black border-white' : 'bg-neutral-200 border-white'}`}></span>
-                 <h4 className={`text-xs font-bold uppercase tracking-widest mb-6 ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Leadership & Experiential Learning</h4>
-                 
-                 <div className="space-y-10">
-                     {/* Finance Club */}
-                     <div>
-                        <div className="flex justify-between items-baseline mb-2">
-                            <h5 className="text-lg font-bold">Finance Club</h5>
-                            <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Aug 2025 - Present</span>
-                        </div>
-                        <div className={`text-sm font-medium mb-3 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Lead Analyst, Markets Team</div>
-                        <ul className={`list-disc list-outside text-sm space-y-2 ml-4 ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
-                            <li>Led weekly macro and sector discussions for ~20 analysts; prepared market briefs on rates, equities, and credit.</li>
-                            <li>Mentored new analysts on research process, data sourcing, and structuring investment theses.</li>
-                        </ul>
-                     </div>
-
-                     {/* Delta Sigma Pi */}
-                     <div>
-                        <div className="flex justify-between items-baseline mb-2">
-                            <h5 className="text-lg font-bold">Delta Sigma Pi</h5>
-                            <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-neutral-500'}`}>Aug 2025 - Present</span>
-                        </div>
-                        <div className={`text-sm font-medium mb-3 ${darkMode ? 'text-white' : 'text-blue-700'}`}>Fundraising, Culture, and Public Relations Committee Advisor</div>
-                        <ul className={`list-disc list-outside text-sm space-y-2 ml-4 ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
-                            <li>Launched the chapter's first Alumni Board with VP of Public Relations and coordinated outreach to 550+ alumni.</li>
-                        </ul>
-                     </div>
-                 </div>
-               </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section - Moved to Bottom */}
-      <section className={`py-24 border-b transition-colors duration-300 ${darkMode ? 'bg-black border-white/20' : 'bg-neutral-50 border-neutral-100'}`}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-           <h3 className="text-2xl font-bold mb-12 text-center">Skills & Competencies</h3>
-          
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              {/* Analysis */}
-              <div>
-                <div className={`flex items-center mb-4 text-xs font-bold uppercase tracking-widest ${darkMode ? 'text-white' : 'text-blue-700'}`}>
-                  <BarChart3 className="w-4 h-4 mr-2" /> Analysis
-                </div>
-                <div className="flex flex-wrap gap-2.5">
-                  {[
-  'Equity Research',
-  'Credit Research',
-  'Macro Analysis',
-  'Geopolitical Risk',
-  'Industry Analysis',
-  'Insight Generation',
-  'FRED',
-  'IMF',
-  'World Bank',
-  'Google Scholar'
-].map(skill => (
-                    <span key={skill} className={`text-xs px-3.5 py-2 rounded-md font-medium border shadow-sm transition-colors ${darkMode ? 'bg-black text-white border-white' : 'bg-white text-blue-800 border-blue-100'}`}>{skill}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Strategy */}
-              <div>
-                <div className={`flex items-center mb-4 text-xs font-bold uppercase tracking-widest ${darkMode ? 'text-white' : 'text-amber-700'}`}>
-                  <Lightbulb className="w-4 h-4 mr-2" /> Strategy
-                </div>
-                <div className="flex flex-wrap gap-2.5">
-                  {['Analytical Reasoning', 'Problem Structuring', 'Connecting Micro to Macro', 'Decision Frameworks'].map(skill => (
-                    <span key={skill} className={`text-xs px-3.5 py-2 rounded-md font-medium border shadow-sm transition-colors ${darkMode ? 'bg-black text-white border-white' : 'bg-white text-amber-800 border-amber-100'}`}>{skill}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Communication */}
-              <div>
-                <div className={`flex items-center mb-4 text-xs font-bold uppercase tracking-widest ${darkMode ? 'text-white' : 'text-purple-700'}`}>
-                  <MessageSquare className="w-4 h-4 mr-2" /> Communication
-                </div>
-                <div className="flex flex-wrap gap-2.5">
-                  {['Analytical Writing', 'Presentation Building', 'Thesis Development', 'Business Communication'].map(skill => (
-                    <span key={skill} className={`text-xs px-3.5 py-2 rounded-md font-medium border shadow-sm transition-colors ${darkMode ? 'bg-black text-white border-white' : 'bg-white text-purple-800 border-purple-100'}`}>{skill}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Tools */}
-              <div>
-                <div className={`flex items-center mb-4 text-xs font-bold uppercase tracking-widest ${darkMode ? 'text-white' : 'text-emerald-700'}`}>
-                  <Cpu className="w-4 h-4 mr-2" /> Tools
-                </div>
-                <div className="flex flex-wrap gap-2.5">
-                  {[
-  'Excel',
-  'PowerPoint',
-  'Bloomberg',
-  'Python',
-  'Adobe Suite',
-  'Google Suite'
-]
-.map(skill => (
-                    <span key={skill} className={`text-xs px-3.5 py-2 rounded-md font-medium border shadow-sm transition-colors ${darkMode ? 'bg-black text-white border-white' : 'bg-white text-emerald-800 border-emerald-100'}`}>{skill}</span>
-                  ))}
-                </div>
-              </div>
-           </div>
-        </div>
-      </section>
-
-      {/* Get In Touch */}
-      <section id="contact" className={`py-24 border-t transition-colors duration-300 ${darkMode ? 'bg-black border-white/20' : 'bg-white border-neutral-100'}`}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h3 className="text-4xl font-bold">Get In Touch</h3>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Email Card */}
-            <a href="mailto:shubh4m@vt.edu" className={`group p-10 rounded-2xl border shadow-sm transition-all duration-300 flex flex-col items-center text-center ${darkMode ? 'bg-black border-white/20 hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'bg-neutral-50 border-neutral-200 hover:shadow-xl hover:-translate-y-1'}`}>
-               <div className={`p-4 rounded-full mb-6 transition-colors duration-300 shadow-sm ${darkMode ? 'bg-white text-black' : 'bg-white text-blue-600 group-hover:bg-blue-600 group-hover:text-white'}`}>
-                 <Mail className="w-8 h-8" />
-               </div>
-               <h4 className="text-xl font-bold mb-2">Email Me</h4>
-               <span className={`font-medium ${darkMode ? 'text-gray-300' : 'text-blue-600'}`}>shubh4m@vt.edu</span>
-            </a>
-
-            {/* LinkedIn Card */}
-            <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className={`group p-10 rounded-2xl border shadow-sm transition-all duration-300 flex flex-col items-center text-center ${darkMode ? 'bg-black border-white/20 hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'bg-neutral-50 border-neutral-200 hover:shadow-xl hover:-translate-y-1'}`}>
-               <div className={`p-4 rounded-full mb-6 transition-colors duration-300 shadow-sm ${darkMode ? 'bg-white text-black' : 'bg-white text-blue-600 group-hover:bg-blue-600 group-hover:text-white'}`}>
-                 <Linkedin className="w-8 h-8" />
-               </div>
-               <h4 className="text-xl font-bold mb-2">LinkedIn</h4>
-               <span className={`font-medium ${darkMode ? 'text-gray-300' : 'text-blue-600'}`}>Connect on LinkedIn</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer - With Discreet Admin Button */}
-      <footer className={`py-12 border-t transition-colors duration-300 ${darkMode ? 'bg-black border-white/20 text-gray-500' : 'bg-neutral-900 text-neutral-400 border-neutral-800'}`}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm">© 2026 Shubham Agarwal. All rights reserved.</p>
-          
-          <div className="flex items-center space-x-6 mt-4 md:mt-0">
-             {/* Discreet Admin Button - Just a lock icon in the footer */}
-             <button 
-                onClick={() => setIsFormOpen(true)}
-                className={`transition-colors p-2 ${darkMode ? 'text-gray-600 hover:text-white' : 'text-neutral-600 hover:text-neutral-300'}`}
-                title="Add Project (Private)"
-             >
-                <Lock className="w-4 h-4" />
-             </button>
-          </div>
-        </div>
-      </footer>
-
-      {/* PROJECT DETAILS MODAL */}
-      {selectedProject && (
-        <div className="fixed inset-0 bg-neutral-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className={`rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200 ${darkMode ? 'bg-black border border-white/20' : 'bg-white'}`}>
-            {/* Header */}
-            <div
-  className={`px-5 py-4 sm:p-6 md:p-8 border-b flex justify-between items-start sticky top-0 z-10 ${
-    darkMode ? 'bg-black border-white/20' : 'bg-white border-neutral-100'
-  }`}
->
-  <div className="max-w-[85%]">
-    <span
-      className={`font-bold text-xs uppercase tracking-widest mb-2 block ${
-        darkMode ? 'text-white' : 'text-blue-600'
-      }`}
-    >
-      {selectedProject.modalData.category}
-    </span>
-
-    <h2
-      className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug break-words"
-    >
-      {selectedProject.title}
-    </h2>
-  </div>
-
-  <button
-    onClick={() => setSelectedProject(null)}
-    className={`p-2 rounded-full transition-colors ${
-      darkMode ? 'bg-white/10 hover:bg-white/20 text-white' : 'bg-neutral-50 hover:bg-neutral-100 text-neutral-400'
-    }`}
-  >
-    <X className="w-5 h-5" />
-  </button>
-</div>
-
-
-            <div className="p-8">
-                {/* Metrics Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-                    {selectedProject.modalData.metrics.map((m, i) => (
-                        <div key={i} className={`p-4 rounded-lg text-center border ${darkMode ? 'bg-black border-white/20' : 'bg-neutral-50 border-neutral-100'}`}>
-                            <div className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${darkMode ? 'text-gray-400' : 'text-neutral-400'}`}>{m.label}</div>
-                            <div className="text-lg font-bold">{m.value}</div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Overview */}
-                <div className="mb-10">
-                    <div className="flex items-center mb-4">
-                        <Briefcase className={`w-5 h-5 mr-2 ${darkMode ? 'text-gray-400' : 'text-neutral-400'}`} />
-                        <h4 className="text-lg font-bold">Overview</h4>
-                    </div>
-                    <p className={`leading-relaxed font-light ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>
-                        {selectedProject.modalData.overview}
-                    </p>
-                </div>
-
-                {/* Investment Thesis */}
-                <div>
-                    <div className="flex items-center mb-6">
-                        <TrendingUp className={`w-5 h-5 mr-2 ${darkMode ? 'text-gray-400' : 'text-neutral-400'}`} />
-                        <h4 className="text-lg font-bold">Investment Thesis</h4>
-                    </div>
-                    <div className="space-y-6">
-                        {selectedProject.modalData.thesis.map((point, i) => (
-                            <div key={i} className="flex">
-                                <div
-  className={`flex-shrink-0 w-8 h-8 rounded-full font-bold flex items-center justify-center text-base mr-4 ${
-    darkMode ? 'bg-white text-black' : 'bg-blue-50 text-blue-600'
-  }`}
->
-  {i + 1}
-</div>
-
-                                <div>
-                                    <span className="font-bold block mb-1">{point.title}</span>
-                                    <span className={`font-light text-sm ${darkMode ? 'text-gray-300' : 'text-neutral-600'}`}>{point.desc}</span>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            {/* MODAL FOOTER: View Project PDF */}
-            <div className={`p-6 border-t flex justify-between items-center sticky bottom-0 ${darkMode ? 'bg-black border-white/20' : 'bg-neutral-50 border-neutral-100'}`}>
-                <div className={`text-sm italic ${darkMode ? 'text-gray-500' : 'text-neutral-400'}`}>Analysis Date: {selectedProject.date}</div>
-                <a 
-                    href={selectedProject.pdfLink} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className={`px-5 py-2.5 rounded-lg text-sm font-bold flex items-center transition-colors ${darkMode ? 'bg-white hover:bg-gray-200 text-black' : 'bg-neutral-900 hover:bg-neutral-800 text-white'}`}
-                >
-                    View Project PDF <FileText className="w-4 h-4 ml-2" />
-                </a>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Add Project Form Modal (Functional for You) */}
-      {isFormOpen && (
-        <div className="fixed inset-0 bg-neutral-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className={`rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto ${darkMode ? 'bg-black border border-white/20' : 'bg-white'}`}>
-             <div className={`flex justify-between items-center p-6 border-b ${darkMode ? 'border-white/20' : 'border-neutral-100'}`}>
-              <h3 className="text-xl font-bold">Add New Project</h3>
-              <button onClick={() => setIsFormOpen(false)} className={`p-2 rounded-full transition-colors ${darkMode ? 'text-gray-400 hover:text-white hover:bg-white/10' : 'text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100'}`}>
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <form onSubmit={handleSubmit} className="p-6 space-y-5">
-              <input type="text" name="title" required value={newProject.title} onChange={handleInputChange} className={`w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500 ${darkMode ? 'bg-black border-white/20 text-white placeholder-gray-500 focus:border-white' : 'bg-white border-neutral-300 placeholder-neutral-400'}`} placeholder="Project Title" />
-              <div className="grid grid-cols-2 gap-4">
-                 <select name="type" value={newProject.type} onChange={handleInputChange} className={`w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500 ${darkMode ? 'bg-black border-white/20 text-white focus:border-white' : 'bg-white border-neutral-300'}`}>
-                    <option>Equity</option>
-                    <option>Fixed Income</option>
-                    <option>Economic Essay</option>
-                    <option>Case Study</option>
-                 </select>
-                 <input type="date" name="date" required value={newProject.date} onChange={handleInputChange} className={`w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500 ${darkMode ? 'bg-black border-white/20 text-white focus:border-white' : 'bg-white border-neutral-300'}`} />
-              </div>
-              <textarea name="summary" required rows="3" value={newProject.summary} onChange={handleInputChange} className={`w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500 ${darkMode ? 'bg-black border-white/20 text-white placeholder-gray-500 focus:border-white' : 'bg-white border-neutral-300 placeholder-neutral-400'}`} placeholder="Summary..."></textarea>
-              <input type="text" name="tags" value={newProject.tags} onChange={handleInputChange} className={`w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500 ${darkMode ? 'bg-black border-white/20 text-white placeholder-gray-500 focus:border-white' : 'bg-white border-neutral-300 placeholder-neutral-400'}`} placeholder="Tags (comma separated)" />
-              <button type="submit" className={`w-full py-3 rounded-lg font-bold transition-colors ${darkMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-neutral-900 hover:bg-neutral-800 text-white'}`}>Add to Portfolio</button>
-            </form>
-          </div>
-        </div>
-      )}
-    </div>
+        </section>
+      </main>
+      <footer className="site-footer"><div className="container footer-content"><p>© {new Date().getFullYear()} Shubham Agarwal</p><a href="#home">Back to top <ArrowUpRight size={14} aria-hidden="true" /></a></div></footer>
+      {selectedProject && <ProjectDialog project={selectedProject} onClose={() => setSelectedProject(null)} />}
+    </>
   );
-};
-
-export default Portfolio;
+}
