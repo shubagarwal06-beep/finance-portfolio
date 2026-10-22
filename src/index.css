@@ -85,7 +85,7 @@ nav a:hover, .text-link:hover, .site-footer a:hover { color: var(--accent); }
 .section { padding-block: 88px; border-top: 1px solid var(--border); }
 .section-tinted { background: var(--surface); }
 .section-grid { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 72px; }
-.section-heading h2 { font-size: 42px; line-height: 1.2; letter-spacing: -.035em; margin-top: 12px; }
+.section-heading h2 { font-size: 42px; line-height: 1.2; letter-spacing: -.035em; margin-top: 0; }
 .intro { font-family: var(--serif); font-size: 28px; line-height: 1.5; letter-spacing: -.02em; max-width: 680px; }
 .about-description { margin-top: 20px; max-width: 665px; font-size: 15px; line-height: 1.9; }
 .education { margin-top: 35px; padding-top: 28px; border-top: 1px solid var(--border); }
@@ -201,7 +201,7 @@ body:has(dialog[open]) .site-header { z-index: 0; }
   .portrait img { aspect-ratio: 1; }
   .section { padding-block: 55px; }
   .section-grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
-  .section-heading h2 { font-size: 38px; margin-top: 8px; }
+  .section-heading h2 { font-size: 38px; }
   .intro { font-size: 25px; }
   .about-description { font-size: 14px; margin-top: 16px; }
   .education { margin-top: 27px; padding-top: 23px; }

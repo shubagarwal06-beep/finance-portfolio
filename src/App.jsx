@@ -374,7 +374,7 @@ export default function Portfolio() {
 
         <section id="about" className="section section-tinted" aria-labelledby="about-title">
           <div className="container section-grid">
-            <div className="section-heading"><p className="eyebrow">01 / Background</p><h2 id="about-title">About</h2></div>
+            <div className="section-heading"><h2 id="about-title">About</h2></div>
             <div className="about-content">
               <p className="intro">I study finance at Virginia Tech, with a focus on markets, credit, and macro research.</p>
               <p className="muted about-description">I’m pursuing internships in sales & trading, credit and fixed income, macro, and equity research. My experience spans corporate strategy, fixed income investing, and finance.</p>
@@ -391,7 +391,7 @@ export default function Portfolio() {
 
         <section id="experience" className="section" aria-labelledby="experience-title">
           <div className="container section-grid">
-            <div className="section-heading"><p className="eyebrow">02 / Experience</p><h2 id="experience-title">Experience</h2></div>
+            <div className="section-heading"><h2 id="experience-title">Experience</h2></div>
             <div>
               <div className="experience-list">
                 {EXPERIENCE.map((job) => (
@@ -416,7 +416,7 @@ export default function Portfolio() {
         <section id="research" className="section section-tinted" aria-labelledby="research-title">
           <div className="container">
             <div className="research-heading">
-              <div className="section-heading"><p className="eyebrow">03 / Selected work</p><h2 id="research-title">Research</h2></div>
+              <div className="section-heading"><h2 id="research-title">Research</h2></div>
               <p className="muted">Investment pitches, market notes,<br className="desktop-break" /> and applied research tools.</p>
             </div>
             <div className="filters" role="group" aria-label="Filter research by focus">
@@ -458,7 +458,7 @@ export default function Portfolio() {
 
         <section id="contact" className="section contact-section" aria-labelledby="contact-title">
           <div className="container section-grid">
-            <div className="section-heading"><p className="eyebrow">04 / Get in touch</p><h2 id="contact-title">Contact</h2></div>
+            <div className="section-heading"><h2 id="contact-title">Contact</h2></div>
             <div><p className="intro">Let’s connect.</p><p className="muted contact-description">For internship opportunities and conversations about markets, credit, or research.</p>
               <div className="contact-links"><a href={`mailto:${EMAIL}`}><Mail size={20} aria-hidden="true" /><span>{EMAIL}</span><ArrowUpRight size={19} aria-hidden="true" /></a><a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer"><Linkedin size={20} aria-hidden="true" /><span>Connect on LinkedIn</span><ArrowUpRight size={19} aria-hidden="true" /></a></div>
             </div>
